@@ -3,33 +3,41 @@ import React, { Component } from 'react';
 class EnterBar extends Component {
     constructor(props) {
         super(props);
-
-        this.state = { todoItems: '' };
-        this.setTodo = this.setTodo.bind(this);
+        this.state = { newItem: '', todoItems: [] };
+        this.onInputChange = this.onInputChange.bind(this);
+        this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
-    setTodo = () => {
-        this.setState({
-            todoItems: 'test'
-        })
+    onInputChange(event) {
+        this.setState({ newItem: event.target.value })
+    }
+
+    onFormSubmit(event) {
+        event.preventDefault();
+        if (this.state.todoItems && this.state.newItem.length > 0) {
+
+            this.setState({
+                todoItems: this.state.todoItems.concat([this.state.newItem])
+            });
+            this.setState({ newItem: '' });  // clears the search bar
+            console.log('this.state.todoItems', this.state.todoItems);
+        }
     }
 
     render() {
         return (
-            <div className="search-bar">
+            <form onSubmit={ this.onFormSubmit } className="input-group.search-bar">
                 <input 
-                    value={ this.state.term }
-                    onChange={ event => this.onInputChange(event.target.value) }
+                    placeholder="enter a new todo item"
+                    className="form-control"
+                    value={ this.state.newItem }
+                    onChange={ this.onInputChange }
                 />
-            </div>
+                <span className="input-group-btn">
+                    <button type="submit" className="btn btn-secondary">Submit</button>
+                </span>
+            </form>
         );
-    }
-
-    onInputChange(term) {
-        //this.setState({ term });
-
-        console.log(term);
-       // this.props.onTodoChange(term);
     }
 }
 

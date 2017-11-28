@@ -1,48 +1,20 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
 import './App.css';
 import EnterBar from './components/enterBar';
+import DisplayList from './components/displayList';
 
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      todoItems: []
-    }
-
-    this.todoItemEntered('test');
-  }
-
-  todoItemEntered(item) {
-
-    if (this.state.todoItems) {
-      var list = this.state.todoItems;
-      list.push(item);
-
-      this.setState({
-        todoItems: list
-      });
-    }
-  }
-
+export default class App extends Component {
   render() {
-    const test = (test) => { this.todoItemEntered(test) };
-    console.log(test);
-
     return (
       <div className="App">
         <header className="App-header">
         <h1 className="App-title">hello world!</h1>
         </header>
         <div className="App-intro">
-          <EnterBar/>
+          <EnterBar />
+          <DisplayList />
         </div>
-   
       </div>
     );
   }
 }
-
-export default App;
